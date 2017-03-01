@@ -21,6 +21,6 @@
             });
     }
     angular
-        .module('blocJams', ['ui-router'])
+        .module('blocJams', ['ui.router'])
         .config(config);
 })();
