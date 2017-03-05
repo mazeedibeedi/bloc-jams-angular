@@ -57,6 +57,15 @@
         var getSongIndex = function(song) {
             return currentAlbum.songs.indexOf(song);
         };
+        
+        /**
+        * @function stopSong
+        * @desc Stops the currently playing song
+        */
+        var stopSong = function() {
+            currentBuzzObject.stop();
+            SongPlayer.currentSong.playing = null;
+        };
         /**
         * @function SongPlayer.play
         * @desc Public method that handles playing a song in the browser. Handles different situations
@@ -88,15 +97,32 @@
         
         /**
         * @function SongPlayer.previous
-        * @desc Public method that handles changing the song to the previously played song
+        * @desc Public method that handles changing the song to the previous song in the album. Stops playing when the currently playing song is the first song in the album
         */
         SongPlayer.previous = function() {
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);
             currentSongIndex--;
             
             if (currentSongIndex < 0) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
+                stopSong();
+            } else {
+                var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };
+        
+        /**
+        * @function SongPlayer.next
+        * @desc Public method that handles changing the song to the next song in the album. Stops playing when the currently playing song is the last song in the album
+        */
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+            var currentAlbumLength = currentAlbum.songs.length;
+            
+            if (currentSongIndex > currentAlbumLength - 1) {
+                stopSong();
             } else {
                 var song = currentAlbum.songs[currentSongIndex];
                 setSong(song);
