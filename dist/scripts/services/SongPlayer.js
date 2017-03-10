@@ -21,6 +21,11 @@
         SongPlayer.currentTime = null;
         
         /**
+        * @desc Current volume that the playerbar is set at
+        * @type {Number}
+        */
+        SongPlayer.volume = 10;
+        /**
         * @desc Buzz object audio file
         * @type {Object}
         */
@@ -41,6 +46,8 @@
                 formats: ['mp3'],
                 preload: true
             });
+            
+            currentBuzzObject.setVolume(5);
             
             currentBuzzObject.bind('timeupdate', function() {
                 $rootScope.$apply(function() {
@@ -143,11 +150,27 @@
             }
         };
         
+        /**
+        * @function setCurrentTime
+        * @desc Set Current time (in seconds) of currently playing song
+        * @param {Number} time
+        */
         SongPlayer.setCurrentTime = function(time) {
             if (currentBuzzObject) {
                 currentBuzzObject.setTime(time);
             }
         };
+        
+        /**
+        * @function setVolume
+        * @desc Sets volume of in the playerbar
+        * @param {Number} volume
+        */
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+            }
+        }
             
         return SongPlayer;
     }
