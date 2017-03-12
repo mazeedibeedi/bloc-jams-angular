@@ -24,7 +24,7 @@
         * @desc Current volume that the playerbar is set at
         * @type {Number}
         */
-        SongPlayer.volume = 10;
+        SongPlayer.volume = 50;
         /**
         * @desc Buzz object audio file
         * @type {Object}
@@ -47,7 +47,7 @@
                 preload: true
             });
             
-            currentBuzzObject.setVolume(5);
+            currentBuzzObject.setVolume(SongPlayer.volume);
             
             currentBuzzObject.bind('timeupdate', function() {
                 $rootScope.$apply(function() {
@@ -56,6 +56,8 @@
             });
             
             SongPlayer.currentSong = song;
+            
+            currentBuzzObject.bind('ended', SongPlayer.next);
         };
         
         /**

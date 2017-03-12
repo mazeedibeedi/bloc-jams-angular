@@ -47,7 +47,7 @@
                 preload: true
             });
             
-            currentBuzzObject.setVolume(5);
+            currentBuzzObject.setVolume(SongPlayer.volume);
             
             currentBuzzObject.bind('timeupdate', function() {
                 $rootScope.$apply(function() {
@@ -56,6 +56,8 @@
             });
             
             SongPlayer.currentSong = song;
+            
+            currentBuzzObject.bind('ended', SongPlayer.next);
         };
         
         /**
